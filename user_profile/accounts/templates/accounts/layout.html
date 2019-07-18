@@ -1,0 +1,114 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Basic Page Needs
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>{% block title %}Circle{% endblock %}</title>
+
+    <!-- Mobile Specific Metas
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONTS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500'
+          rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Cousine'
+          rel='stylesheet' type='text/css'>
+
+    <!-- CSS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="{% static 'accounts/css/global.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'accounts/css/custom.css' %}">
+
+    <!-- JS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript"
+            src="{% static 'accounts/js/autogrow.js' %}"></script>
+
+
+    <!-- Text Editor from https://www.tiny.cloud/-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js'
+            referrerpolicy="origin"></script>
+
+    <script>
+    tinymce.init({
+      selector: '#mytextarea',
+      height: 250,
+      menubar: false,
+      toolbar: 'undo redo | formatselect | bold underline italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+      content_css: [
+        '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+        '//www.tiny.cloud/css/codepen.min.css'
+      ]
+    });
+    </script>
+
+    <!-- Password Strength Meter
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="{% static 'accounts/js/password.min.js' %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static 'accounts/css/password.min.css' %}" />
+    <!--
+    <script type="text/css" src="{% static 'accounts/css/password.min.css' %}"></script> -->
+
+    <!-- Image manipulator
+    https://jsfiddle.net/a12tmgew/ -->
+
+
+</head>
+<body>
+<header class="circle--header">
+    <div class="bounds">
+        <div class="circle--fluid">
+            <div class="circle--fluid--cell">
+                <h1 class="hide-text circle--logo"><a class="logo"
+                                                      href="{% url 'accounts:accounts-home' %}">Circle</a>
+                </h1>
+            </div>
+            <div class="circle--fluid--cell circle--fluid--primary">
+                <nav>
+                    <ul class="circle--inline">
+                        <!--
+                        <li><a href="#">nav</a></li>
+                        <li><a href="#">here?</a></li>-->
+                    </ul>
+                </nav>
+            </div>
+            <div class="circle--fluid--cell circle--fluid--secondary">
+                <nav>
+                    <ul class="circle--inline">
+                        {% if not user.is_authenticated %}
+                            <li><a href="{% url 'accounts:accounts-sign_up' %}">Sign Up</a></li>
+                            <li><a href="{% url 'accounts:accounts-sign_in' %}">Sign In</a></li>
+                        {% else %}
+                            <!-- view profile link here? -->
+                            <li><a href="{% url 'accounts:accounts-account' username=request.user.username %}">Account</a></li>
+                            <!-- edit profile link here? -->
+                            <li><a href="{% url 'accounts:accounts-sign_out' %}">Sign Out</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="bounds circle--page">
+    {% if messages %}
+        <ul class="messages centered grid-50">
+            {% for message in messages %}
+                <li>{% if message.tags %}
+                    class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% block body %}{% endblock %}
+</div>
+<script type="text/javascript" src="{% static 'accounts/js/global.js' %}"></script>
+</body>
+</html>

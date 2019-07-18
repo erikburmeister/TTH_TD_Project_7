@@ -1,0 +1,25 @@
+{% extends 'accounts/layout.html' %}
+{% load static %}
+
+{% block body %}
+<img class="rounded-corners" src="{{ user.account.avatar.url }}">
+<div class="grid-50">
+    <h1>{{ user.username|title }}'s Account</h1>
+    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Date of Birth: {{ user.account.date_of_birth }}</p>
+    <p>City: {{ user.account.city|title }}</p>
+    <p>State: {{ user.account.state|capfirst }}</p>
+    <p>Country: {{ user.account.country }}</p>
+    <p>Favorite Animal: {{ user.account.favorite_animal|title }}</p>
+    <p>Favorite Hobby: {{ user.account.favorite_hobby|title }}</p>
+    <p>Favorite movie: {{ user.account.favorite_movie|title }}</p>
+    <p>Biography: {{ user.account.bio|safe }}</p>
+
+    <hr>
+    <a href="{% url 'accounts:accounts-edit_account' username=request.user.username %}">Edit Account</a> |
+    <a href="{% url 'accounts:accounts-change_password' username=request.user.username %}">Change Password</a> |
+    <a href="{% url 'accounts:accounts-edit_avatar' username=request.user.username %}">Edit Avatar</a>
+
+</div>
+{% endblock %}

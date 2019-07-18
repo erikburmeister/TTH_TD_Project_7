@@ -1,0 +1,19 @@
+{% extends 'accounts/layout.html' %}
+{% load static %}
+
+{% block body %}
+<div class="grid-25">
+    <h3>NOTE:</h3>
+    <p>
+        The button just rotates the image, but the image itself is not updated in the account page.
+    </p>
+</div>
+<div class="grid-50">
+    <h1>Edit Avatar</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <img class="north" src="{{ user.account.avatar.url }}">
+        <input type="button" class="button-primary" value="Rotate 90 Degrees Clockwise">
+    </form>
+</div>
+{% endblock %}

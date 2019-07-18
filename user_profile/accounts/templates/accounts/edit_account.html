@@ -1,0 +1,13 @@
+{% extends 'accounts/layout.html' %}
+{% load static %}
+
+{% block body %}
+<h1>Edit Account</h1>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_update_form.as_p }}
+    {{ account_update_form.as_p }}
+    {{ image_update_form.as_p }}
+    <input type="submit" class="button-primary" value="Update">
+</form>
+{% endblock %}
