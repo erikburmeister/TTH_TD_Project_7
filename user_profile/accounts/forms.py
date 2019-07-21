@@ -80,6 +80,9 @@ class ChangePasswordForm(PasswordChangeForm):
         print("Old password: ", old_password)
         print("New password: ", new_password)
         print("Confirm password: ", confirm_password)
+        print(self.user.first_name)
+        print(self.user.last_name)
+        print(self.user.username)
 
         user = self.user
         if user.check_password(new_password):
@@ -104,12 +107,10 @@ class ChangePasswordForm(PasswordChangeForm):
                 """Must include one or more of
                 special characters, such as @, #, $.""")
 
-        if (self.user.first_name.lower() in new_password.lower(),
-            self.user.last_name.lower() in new_password.lower(),
-            self.user.username.lower() in new_password.lower(),
-            self.user.first_name.upper() in new_password.upper(),
-            self.user.last_name.upper() in new_password.upper(),
-            self.user.username.upper() in new_password.upper()):
+        if (user.first_name.lower() in new_password.lower() or
+            user.last_name.lower() in new_password.lower() or
+            user.username.lower() in new_password.lower()):
             raise forms.ValidationError(
                 """cannot contain the user name or parts of the user’s
                 full name, such as their first name""")
+

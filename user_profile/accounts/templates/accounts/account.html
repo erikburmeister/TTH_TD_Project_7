@@ -18,8 +18,9 @@
 
     <hr>
     <a href="{% url 'accounts:accounts-edit_account' username=request.user.username %}">Edit Account</a> |
-    <a href="{% url 'accounts:accounts-change_password' username=request.user.username %}">Change Password</a> |
-    <a href="{% url 'accounts:accounts-edit_avatar' username=request.user.username %}">Edit Avatar</a>
+    <a href="{% url 'accounts:accounts-change_password' username=request.user.username %}">Change Password</a>
+    <!-- |
+    <a href="{% url 'accounts:accounts-edit_avatar' username=request.user.username %}">Edit Avatar</a> -->
 
 </div>
 {% endblock %}
